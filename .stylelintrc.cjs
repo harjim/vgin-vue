@@ -42,7 +42,13 @@ module.exports = {
     'at-rule-no-unknown': [
       true,
       {
-        ignoreAtRules: ['function', 'if', 'else', 'else-if', 'each', 'include', 'mixin'],
+        ignoreAtRules: ['function', 'if', 'else', 'else-if', 'each', 'include', 'mixin', 'tailwind'],
+      },
+    ],
+    'scss/at-rule-no-unknown': [
+      true,
+      {
+        ignoreAtRules: ['tailwind'],
       },
     ],
     'at-rule-empty-line-before': [

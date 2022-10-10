@@ -6,5 +6,11 @@
     "allowSyntheticDefaultImports": true,
     "types": ["vitest/globals"]
   },
-  "include": ["vite.config.ts", "commitlint.config.cjs", "src/**/*.test.ts"]
+  "include": [
+    "vite.config.ts",
+    "commitlint.config.cjs",
+    "postcss.config.cjs",
+    "tailwind.config.cjs",
+    "src/**/*.test.ts"
+  ]
 }

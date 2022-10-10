@@ -18,6 +18,8 @@ parserOptions:
   sourceType: module
   ecmaFeatures:
     jax: true
+  extraFileExtensions:
+    - '.vue'
   project:
     - './tsconfig.json'
     - './tsconfig.node.json'

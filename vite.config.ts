@@ -3,8 +3,10 @@
 import { defineConfig, loadEnv } from 'vite'
 import { ImportMetaEnv } from './src/types/env'
 import vue from '@vitejs/plugin-vue'
-import Jsx from '@vitejs/plugin-vue-jsx'
+import jsx from '@vitejs/plugin-vue-jsx'
 import { resolve } from 'path'
+import components from 'unplugin-vue-components/vite'
+import { VarletUIResolver } from 'unplugin-vue-components/resolvers'
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
@@ -13,7 +15,14 @@ export default defineConfig(({ mode }) => {
   return {
     base: env.VITE_BASE,
     envPrefix: ['VITE_', 'APP_'],
-    plugins: [vue(), Jsx()],
+    plugins: [
+      vue(),
+      jsx(),
+      components({
+        resolvers: [VarletUIResolver()],
+        dts: 'src/types/components.d.ts'
+      })
+    ],
     resolve: {
       alias: {
         '@': resolve(__dirname, 'src')

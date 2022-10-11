@@ -4,6 +4,8 @@ import { createPinia } from 'pinia'
 import router from './routes'
 
 import 'virtual:windi.css'
+import '@varlet/ui/es/snackbar/style/index.js'
+import 'nprogress/nprogress.css'
 
 const app = createApp(App)
 

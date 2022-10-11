@@ -30,3 +30,8 @@ plugins:
   - vue
 rules:
   prettier/prettier: error
+  space-before-function-paren: 0
+  vue/multi-word-component-names:
+    - 'error'
+    - ignores:
+      - 'index'

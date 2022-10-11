@@ -1,16 +1,18 @@
 /// <reference types="vitest" />
 
-import { defineConfig, loadEnv } from 'vite'
-import { ImportMetaEnv } from './src/types/env'
 import Vue from '@vitejs/plugin-vue'
 import Jsx from '@vitejs/plugin-vue-jsx'
 import { resolve } from 'path'
 import AutoImport from 'unplugin-auto-import/vite'
-import Components from 'unplugin-vue-components/vite'
+import IconsResolver from 'unplugin-icons/resolver'
+import Icons from 'unplugin-icons/vite'
 import { VarletUIResolver } from 'unplugin-vue-components/resolvers'
-import WindiCSS from 'vite-plugin-windicss'
-import { viteMockServe } from 'vite-plugin-mock'
+import Components from 'unplugin-vue-components/vite'
+import { defineConfig, loadEnv } from 'vite'
 import Compression from 'vite-plugin-compression'
+import { viteMockServe } from 'vite-plugin-mock'
+import WindiCSS from 'vite-plugin-windicss'
+import { ImportMetaEnv } from './src/types/env'
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }) => {
@@ -24,7 +26,16 @@ export default defineConfig(({ command, mode }) => {
       Jsx(),
       WindiCSS(),
       AutoImport({
-        imports: ['vue', 'pinia', 'vue-router'],
+        imports: [
+          'vue',
+          'pinia',
+          'vue-router',
+          '@vueuse/core',
+          {
+            '@varlet/ui': ['Snackbar'],
+            '@vueuse/core': ['createFetch']
+          }
+        ],
         dts: 'src/types/auto-imports.d.ts',
         eslintrc: {
           enabled: true,
@@ -33,8 +44,29 @@ export default defineConfig(({ command, mode }) => {
         }
       }),
       Components({
-        resolvers: [VarletUIResolver()],
+        resolvers: [
+          VarletUIResolver(),
+          IconsResolver({
+            prefix: 'i',
+            alias: {
+              park: 'icon-park'
+            }
+            // customCollections: {
+            //   // home图标集
+            //   // 给svg文件设置fill="currentColor"属性，使图标的颜色具有适应性
+            //   home: FileSystemIconLoader('src/assets/svg/home', (svg) =>
+            //     svg.replace(/^<svg /, '<svg fill="currentColor" ')
+            //   )
+            // }
+          })
+        ],
         dts: 'src/types/components.d.ts'
+      }),
+      Icons({
+        scale: 1,
+        autoInstall: true,
+        compiler: 'vue3',
+        jsx: 'react'
       }),
       Compression({
         verbose: true,

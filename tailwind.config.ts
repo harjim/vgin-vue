@@ -6,7 +6,9 @@ export default defineConfig({
   attributify: {
     prefix: 'c:'
   },
-  alias: {},
+  alias: {
+    'flex-center': 'flex justify-center items-center'
+  },
   theme: {},
   plugins: []
 })

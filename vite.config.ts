@@ -9,9 +9,10 @@ import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { VarletUIResolver } from 'unplugin-vue-components/resolvers'
 import WindiCSS from 'vite-plugin-windicss'
+import { viteMockServe } from 'vite-plugin-mock'
 
 // https://vitejs.dev/config/
-export default defineConfig(({ mode }) => {
+export default defineConfig(({ command, mode }) => {
   const env = loadEnv(mode, process.cwd(), ['VITE_', 'APP_']) as unknown as ImportMetaEnv
 
   return {
@@ -33,6 +34,12 @@ export default defineConfig(({ mode }) => {
       Components({
         resolvers: [VarletUIResolver()],
         dts: 'src/types/components.d.ts'
+      }),
+      viteMockServe({
+        mockPath: 'mocks',
+        watchFiles: true,
+        localEnabled: command === 'serve',
+        prodEnabled: command === 'serve'
       })
     ],
     resolve: {

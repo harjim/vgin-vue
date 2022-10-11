@@ -10,6 +10,7 @@
     "vite.config.ts",
     "commitlint.config.cjs",
     "tailwind.config.ts",
-    "src/**/*.test.ts"
+    "src/**/*.test.ts",
+    "mocks/**/*.ts"
   ]
 }

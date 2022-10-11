@@ -5,6 +5,7 @@ import { ImportMetaEnv } from './src/types/env'
 import vue from '@vitejs/plugin-vue'
 import jsx from '@vitejs/plugin-vue-jsx'
 import { resolve } from 'path'
+import autoImport from 'unplugin-auto-import/vite'
 import components from 'unplugin-vue-components/vite'
 import { VarletUIResolver } from 'unplugin-vue-components/resolvers'
 
@@ -18,6 +19,15 @@ export default defineConfig(({ mode }) => {
     plugins: [
       vue(),
       jsx(),
+      autoImport({
+        imports: ['vue', 'pinia', 'vue-router'],
+        dts: 'src/types/auto-imports.d.ts',
+        eslintrc: {
+          enabled: true,
+          filepath: './.eslintrc-auto-import.json',
+          globalsPropValue: true
+        }
+      }),
       components({
         resolvers: [VarletUIResolver()],
         dts: 'src/types/components.d.ts'

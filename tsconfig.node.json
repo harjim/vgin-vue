@@ -9,8 +9,7 @@
   "include": [
     "vite.config.ts",
     "commitlint.config.cjs",
-    "postcss.config.cjs",
-    "tailwind.config.cjs",
+    "tailwind.config.ts",
     "src/**/*.test.ts"
   ]
 }

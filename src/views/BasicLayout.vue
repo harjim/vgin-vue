@@ -1,5 +1,5 @@
 <template>
-  <div>BasicLayout</div>
+  <div c:text="xl">BasicLayout</div>
   <var-button type="primary">主要按钮</var-button>
 </template>
 

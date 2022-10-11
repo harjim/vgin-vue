@@ -2,12 +2,13 @@
 
 import { defineConfig, loadEnv } from 'vite'
 import { ImportMetaEnv } from './src/types/env'
-import vue from '@vitejs/plugin-vue'
-import jsx from '@vitejs/plugin-vue-jsx'
+import Vue from '@vitejs/plugin-vue'
+import Jsx from '@vitejs/plugin-vue-jsx'
 import { resolve } from 'path'
-import autoImport from 'unplugin-auto-import/vite'
-import components from 'unplugin-vue-components/vite'
+import AutoImport from 'unplugin-auto-import/vite'
+import Components from 'unplugin-vue-components/vite'
 import { VarletUIResolver } from 'unplugin-vue-components/resolvers'
+import WindiCSS from 'vite-plugin-windicss'
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
@@ -17,9 +18,10 @@ export default defineConfig(({ mode }) => {
     base: env.VITE_BASE,
     envPrefix: ['VITE_', 'APP_'],
     plugins: [
-      vue(),
-      jsx(),
-      autoImport({
+      Vue(),
+      Jsx(),
+      WindiCSS(),
+      AutoImport({
         imports: ['vue', 'pinia', 'vue-router'],
         dts: 'src/types/auto-imports.d.ts',
         eslintrc: {
@@ -28,7 +30,7 @@ export default defineConfig(({ mode }) => {
           globalsPropValue: true
         }
       }),
-      components({
+      Components({
         resolvers: [VarletUIResolver()],
         dts: 'src/types/components.d.ts'
       })

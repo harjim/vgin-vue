@@ -19,6 +19,7 @@ module.exports = {
   ],
   ignoreFiles: ['**/*.js', '**/*.jsx', '**/*.tsx', '**/*.ts', '**/*.json', '**/*.md', '**/*.yaml'],
   rules: {
+    'selector-class-pattern': null,
     'string-quotes': 'single',
     // 禁止在具有较高优先级的选择器后出现被其覆盖的较低优先级的选择器
     'no-descending-specificity': null,

@@ -10,6 +10,7 @@ import Components from 'unplugin-vue-components/vite'
 import { VarletUIResolver } from 'unplugin-vue-components/resolvers'
 import WindiCSS from 'vite-plugin-windicss'
 import { viteMockServe } from 'vite-plugin-mock'
+import Compression from 'vite-plugin-compression'
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }) => {
@@ -34,6 +35,13 @@ export default defineConfig(({ command, mode }) => {
       Components({
         resolvers: [VarletUIResolver()],
         dts: 'src/types/components.d.ts'
+      }),
+      Compression({
+        verbose: true,
+        disable: false,
+        threshold: 10240,
+        algorithm: 'gzip',
+        ext: '.gz'
       }),
       viteMockServe({
         mockPath: 'mocks',

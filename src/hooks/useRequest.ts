@@ -29,8 +29,10 @@ const useRequest = createFetch({
         Snackbar.error(data.msg || '连接错误，请稍后重试')
         data = {}
       } else if (response.status === 401 || data.code === 401) {
+        const token = useStorage('APP_TOKEN', null)
         Snackbar.error(data.msg || '登录过期，请重新登录')
         useTimeoutFn(() => {
+          token.value = null
           router.push('/login')
         }, 1500)
         data = {}

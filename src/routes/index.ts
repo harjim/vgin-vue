@@ -19,10 +19,14 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   NProgress.start()
+  const token = useStorage('APP_TOKEN', null)
   if (to.path === '/login') {
-    next()
+    if (token.value) {
+      next('/')
+    } else {
+      next()
+    }
   } else {
-    const token = useStorage('APP_TOKEN', null)
     if (token.value) {
       next()
     } else {

@@ -8,7 +8,7 @@ export default [
     timeout: Random.integer(300, 1500),
     response: ({ query }) => {
       console.log(query)
-      if (query.username === 'admin' && query.password === '123!@#abcAbc') {
+      if (query.username === 'admin' && query.password === '123!@#abcABC') {
         return {
           code: 200,
           status: true,

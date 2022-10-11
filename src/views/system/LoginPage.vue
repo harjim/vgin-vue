@@ -1,6 +1,6 @@
 <template>
-  <div class="login w-screen h-screen px-4 *flex-center flex-col">
-    <var-card>
+  <div class="login *flex-center">
+    <var-card class="max-w-md">
       <template #title>
         <h1 class="text-4xl text-center font-medium">vgin</h1>
       </template>
@@ -9,6 +9,7 @@
           <var-space direction="column" c:p="x-4">
             <var-input
               v-model="formData.username"
+              autofocus
               placeholder="用户名"
               :rules="[(v) => checkRequired(v, '用户名'), checkUsername]"
             />
@@ -31,7 +32,7 @@
       </template>
     </var-card>
     <p c:text="sm gray-400" c:m="t-2">
-      还没账号？
+      <span>还没账号？</span>
       <var-button text type="primary" c:p="0">注册</var-button>
     </p>
   </div>
@@ -42,6 +43,8 @@ import { useGet } from '@/hooks/useRequest'
 import { checkRequired, checkUsername, checkPassword } from '@/utils/verifications'
 import { _FormComponent } from '@varlet/ui'
 import { LoginResponse } from '@/types/api'
+
+const router = useRouter()
 
 const formData = reactive({
   username: '',
@@ -59,16 +62,22 @@ const validate = async () => {
   const flag = await form.value.validate()
   if (flag) {
     await execute()
-    if (data.value) {
+    if (data.value.data) {
       console.log(data.value.data)
       useLocalStorage('APP_TOKEN', data.value.data)
+      useTimeoutFn(() => {
+        router.push('/')
+      }, 500)
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.login :deep(.var-card__floater) {
-  @apply px-2 py-6;
+.login {
+  @apply w-screen h-screen px-4 flex-col;
+  & :deep(.var-card__floater) {
+    @apply px-2 py-6;
+  }
 }
 </style>
